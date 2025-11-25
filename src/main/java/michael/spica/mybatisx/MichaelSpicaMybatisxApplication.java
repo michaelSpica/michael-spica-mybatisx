@@ -1,6 +1,7 @@
 package michael.spica.mybatisx;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
@@ -10,6 +11,7 @@ import java.net.UnknownHostException;
 
 @Slf4j
 @SpringBootApplication
+@MapperScan("michael.spica.mybatisx.mapper")// 👈 扫描 Mapper 接口所在包
 public class MichaelSpicaMybatisxApplication {
 
     private static final String SPRING_APPLICATION_NAME = "spring.application.name";
