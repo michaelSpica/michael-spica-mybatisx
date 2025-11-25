@@ -1,4 +1,4 @@
-package michael.spica.mybatisx.controller.request;
+package michael.spica.mybatisx.controller.request.order;
 
 import lombok.Data;
 
