@@ -23,7 +23,7 @@ mybatis-plus:
       table-prefix: mic_
       id-type: auto
   tenant:
-    enabled: false # 是否启用多租户模式（默认：false:不开启；true:开启）
+    enabled: true # 是否启用多租户模式（默认：false:不开启；true:开启）
     ignore-tables: # 开启多租户模式后，不需要多租户隔离的表
 #      - mic_order
 
