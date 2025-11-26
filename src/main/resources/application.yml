@@ -24,6 +24,8 @@ mybatis-plus:
       id-type: auto
 
 logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId}] %logger{36} - %msg%n"
   file:
     name: logs/${spring.application.name}.log
   level:
