@@ -1,6 +1,7 @@
 package michael.spica.mybatisx.common.exception;
 
 import lombok.Getter;
+import michael.spica.mybatisx.common.enums.ResultCode;
 
 /**
  * 业务异常
@@ -22,4 +23,8 @@ public class BizException extends RuntimeException {
         this.code = code;
     }
 
+    public BizException(ResultCode resultCode) {
+        super(resultCode.getMessage());
+        this.code = resultCode.getCode();
+    }
 }

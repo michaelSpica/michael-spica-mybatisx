@@ -27,6 +27,9 @@ public enum ResultCode {
     // ========== 租户 ==========
     TENANT_NOT_SET(1401, "当前请求未包含有效的租户信息"),
 
+    // ========== 其它 ==========
+    INVALID_OPERATE_TYPE(2100, "操作类型不正确"),
+
     ;
 
     private final int code;

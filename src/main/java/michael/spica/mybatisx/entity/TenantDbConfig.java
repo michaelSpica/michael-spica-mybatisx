@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import michael.spica.mybatisx.common.base.entity.BaseEntity;
-import michael.spica.mybatisx.common.enums.CommonStatus;
 import org.hibernate.annotations.Comment;
 
 /**
@@ -36,8 +35,4 @@ public class TenantDbConfig extends BaseEntity {
 
     @Column(columnDefinition = "varchar(200) COMMENT '数据库驱动'")
     private String dbDriver;
-
-    @Column(columnDefinition = "varchar(50) COMMENT '状态'")
-    @Enumerated(value = EnumType.STRING)
-    private CommonStatus status;
 }

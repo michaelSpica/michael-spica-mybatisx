@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import michael.spica.mybatisx.common.base.service.impl.BaseServiceImpl;
-import michael.spica.mybatisx.common.enums.CommonStatus;
 import michael.spica.mybatisx.config.TenantConfig;
 import michael.spica.mybatisx.entity.Tenant;
 import michael.spica.mybatisx.entity.TenantDbConfig;
@@ -38,7 +37,6 @@ public class TenantDbConfigServiceImpl extends BaseServiceImpl<TenantDbConfigMap
         tenantDbConfig.setDbPassword(dbConfig.getDbPassword());
         tenantDbConfig.setDbType(DbType.MYSQL);
         tenantDbConfig.setDbDriver(dbConfig.getDbDriver());
-        tenantDbConfig.setStatus(CommonStatus.ENABLED);
         boolean saved = super.save(tenantDbConfig);
         if (saved) {
             log.debug("租户数据源配置成功: {}", JSONUtil.toJsonStr(tenantDbConfig));

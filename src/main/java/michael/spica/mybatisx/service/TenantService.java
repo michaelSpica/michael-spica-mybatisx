@@ -11,4 +11,6 @@ import michael.spica.mybatisx.entity.Tenant;
 public interface TenantService extends BaseService<Tenant, Long> {
 
     R<Tenant> create(TenantCreateRequest request);
+
+    R<Tenant> switchStatus(String operate, Long id);
 }
