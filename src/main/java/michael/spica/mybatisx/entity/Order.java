@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import michael.spica.mybatisx.common.base.BaseEntity;
+import michael.spica.mybatisx.common.base.entity.TenantBaseEntity;
 import org.hibernate.annotations.Comment;
 
 /**
@@ -15,11 +15,10 @@ import org.hibernate.annotations.Comment;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-//@TableName("mic_order") // 👈 指定表名（根据实际表名调整）
 @Entity
 @Table
 @Comment(value = "订单表")
-public class Order extends BaseEntity {
+public class Order extends TenantBaseEntity {
 
     /**
      * 订单编号

@@ -37,10 +37,26 @@ mybatis-plus:
     db-config:
       table-prefix: ${spring.jpa.hibernate.naming.table-prefix} # 表名前缀
       id-type: auto # 主键生成策略：数据库自增
-  tenant:
-    enabled: true # 是否启用多租户模式（默认：false:不开启；true:开启）
-    ignore-tables: # 开启多租户模式后，不需要多租户隔离的表
-#      - mic_order
+
+# ========== 多租户配置 ==========
+tenant:
+  enabled: true # 是否启用多租户模式（默认：false:不开启；true:开启）
+  ignore-tables: # 开启多租户模式后，不需要多租户隔离的表
+    - mic_tenant
+    - mic_tenant_db_config
+  # 多租户数据源配置（即：创建新租户时，默认初始化指定库的指定表）
+  db-config:
+    init: true # 是否初始化
+    prefix: tenant_ # 租户库前缀
+    db-url: jdbc:mysql://localhost:3306/%s?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    db-driver: com.mysql.cj.jdbc.Driver
+    db-username: root
+    db-password: 123456
+    db-infos:
+      - db-name: mic_test_v2
+        tables:
+          - mic_order
+          - mic_product
 
 logging:
   pattern:

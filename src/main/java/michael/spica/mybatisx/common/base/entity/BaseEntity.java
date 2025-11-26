@@ -1,10 +1,10 @@
-package michael.spica.mybatisx.common.base;
+package michael.spica.mybatisx.common.base.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -18,19 +18,7 @@ import java.time.LocalDateTime;
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class BaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "bigint COMMENT '主键ID'")
-    @TableId(type = IdType.AUTO)
-    private Long id;
-
-    /**
-     * 租户ID
-     */
-    @Column(columnDefinition = "bigint COMMENT '租户ID'")
-    private Long tenantId;
+public abstract class BaseEntity extends IdEntity {
 
     /**
      * 创建时间

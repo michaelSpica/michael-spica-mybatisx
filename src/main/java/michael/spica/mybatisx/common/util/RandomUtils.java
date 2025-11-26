@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Created by michael on 2025-11-25.
@@ -57,5 +60,74 @@ public class RandomUtils {
      */
     public static String generateOrderNo() {
         return DateUtil.format(DateUtil.date(), "yyyyMMddHHmmss") + RandomUtil.randomNumbers(6);
+    }
+
+    /**
+     * 随机生成一个 fake 随机字符串（可能不正确，主要用于测试）
+     */
+    public static String randomFakeNamePlus() {
+        final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+        int length = ThreadLocalRandom.current().nextInt(5, 9); // 5~8
+        return IntStream.range(0, length)
+                .mapToObj(i -> String.valueOf(ALPHABET.charAt(
+                        ThreadLocalRandom.current().nextInt(ALPHABET.length())
+                )))
+                .collect(Collectors.joining());
+    }
+
+    /**
+     * 随机生成一个中国手机号
+     * 格式：1xx xxxx xxxx
+     * 前三位：13x, 14x, 15x, 16x, 17x, 18x, 19x
+     */
+    public static String generateMobile() {
+        final String[] prefixArray = {
+                "130", "131", "132", "133", "134", "135", "136", "137", "138", "139",
+                "145", "147", "149",
+                "150", "151", "152", "153", "155", "156", "157", "158", "159",
+                "166",
+                "170", "171", "172", "173", "174", "175", "176", "177", "178",
+                "180", "181", "182", "183", "184", "185", "186", "187", "188", "189",
+                "191", "193", "195", "198", "199"
+        };
+        // 随机选择一个号段
+        String prefix = RandomUtil.randomEle(prefixArray);
+        // 生成后8位随机数字
+        String suffix = RandomUtil.randomNumbers(8);
+        return prefix + suffix;
+    }
+
+    /**
+     * 随机生成一个电子邮件地址
+     */
+    public static String generateEmail() {
+        final String[] EMAIL_DOMAINS = {
+                "gmail.com", "yahoo.com", "hotmail.com", "outlook.com",
+                "163.com", "qq.com", "sina.com", "sohu.com"
+        };
+        // 生成长度为5-10的随机用户名
+        String username = RandomUtil.randomString(String.valueOf(5), 10);
+        // 随机选择一个域名
+        String domain = RandomUtil.randomEle(EMAIL_DOMAINS);
+        return username + "@" + domain;
+    }
+
+    /**
+     * 随机生成一个电子邮件地址（线程安全）
+     */
+    public static String generateEmailPlus() {
+        final String ALPHABET = "abcdefghijklmnopqrstuvwxyz0123456789";
+        final String[] EMAIL_DOMAINS = {
+                "gmail.com", "yahoo.com", "hotmail.com", "outlook.com",
+                "163.com", "qq.com", "sina.com", "sohu.com"
+        };
+        int length = ThreadLocalRandom.current().nextInt(5, 11); // 用户名长度 5~10
+        String username = IntStream.range(0, length)
+                .mapToObj(i -> String.valueOf(ALPHABET.charAt(
+                        ThreadLocalRandom.current().nextInt(ALPHABET.length())
+                )))
+                .collect(Collectors.joining());
+        String domain = EMAIL_DOMAINS[ThreadLocalRandom.current().nextInt(EMAIL_DOMAINS.length)];
+        return username + "@" + domain;
     }
 }

@@ -25,7 +25,7 @@ import java.util.Optional;
 public class MybatisPlusConfig {
 
     @Resource
-    private TenantIgnoreProperties tenantIgnoreProperties;
+    private TenantConfig tenantConfig;
 
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
@@ -41,7 +41,7 @@ public class MybatisPlusConfig {
     }
 
     private Optional<TenantLineInnerInterceptor> buildTenantInterceptor() {
-        if (!tenantIgnoreProperties.isEnabled()) {
+        if (!tenantConfig.isEnabled()) {
             return Optional.empty();
         }
 
@@ -59,7 +59,7 @@ public class MybatisPlusConfig {
 
                     @Override
                     public boolean ignoreTable(String tableName) {
-                        return tenantIgnoreProperties.getIgnoreTables()
+                        return tenantConfig.getIgnoreTables()
                                 .stream()
                                 .anyMatch(tableName::equalsIgnoreCase);
                     }
