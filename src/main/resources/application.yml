@@ -12,6 +12,21 @@ spring:
   mvc:
     servlet:
       path: /api
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: michael.spica.mybatisx.config.TablePrefixNamingStrategy
+        table-prefix: mic_ # 表前缀（可为空）
+        prefix-enabled: true # 是否启用前缀（true=启用前缀，false=不加前缀）
+    show-sql: true # 打印SQL
+    properties:
+      hibernate:
+        format_sql: false # SQL 格式化输出
+  servlet:
+    multipart:
+      max-file-size: 1GB # 单个文件最大 1GB
+      max-request-size: 10GB # 整个请求最大 10GB
 
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
@@ -20,8 +35,8 @@ mybatis-plus:
     map-underscore-to-camel-case: true
   global-config:
     db-config:
-      table-prefix: mic_
-      id-type: auto
+      table-prefix: ${spring.jpa.hibernate.naming.table-prefix} # 表名前缀
+      id-type: auto # 主键生成策略：数据库自增
   tenant:
     enabled: true # 是否启用多租户模式（默认：false:不开启；true:开启）
     ignore-tables: # 开启多租户模式后，不需要多租户隔离的表

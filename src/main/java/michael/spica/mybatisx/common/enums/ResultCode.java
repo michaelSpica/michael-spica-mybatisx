@@ -16,7 +16,18 @@ public enum ResultCode {
 
     UNAUTHORIZED(401, "未认证或Token已失效"),
 
-    FORBIDDEN(403, "没有相关权限");
+    FORBIDDEN(403, "没有相关权限"),
+
+    // ========== 用户 ==========
+    USER_NOT_EXIST(1301, "用户不存在"),
+    USER_NOT_LOGIN(1302, "用户未登录"),
+    USER_DISABLED(1303, "用户被禁用"),
+    USER_LOCKED(1304, "用户被锁"),
+
+    // ========== 租户 ==========
+    TENANT_NOT_SET(1401, "当前请求未包含有效的租户信息"),
+
+    ;
 
     private final int code;
 

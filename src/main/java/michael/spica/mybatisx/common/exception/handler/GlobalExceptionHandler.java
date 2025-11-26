@@ -33,7 +33,13 @@ public class GlobalExceptionHandler {
         log.warn("鉴权异常, traceId={}, type={}, msg={}", MDC.get(HeaderConstants.TRACE_ID), e.getType(), e.getMessage());
         return switch (e.getType()) {
             case TOKEN_EXPIRED -> R.fail(ResultCode.UNAUTHORIZED.getCode(), "登录过期，请重新登录");
-            case FORBIDDEN -> R.fail(ResultCode.FORBIDDEN.getCode(), "权限不足");
+            case TOKEN_INVALID -> R.fail(ResultCode.UNAUTHORIZED);
+            case FORBIDDEN -> R.fail(ResultCode.FORBIDDEN);
+            case USER_NOT_EXIST -> R.fail(ResultCode.USER_NOT_EXIST);
+            case USER_DISABLED -> R.fail(ResultCode.USER_DISABLED);
+            case USER_LOCKED -> R.fail(ResultCode.USER_LOCKED);
+            case USER_NOT_LOGIN -> R.fail(ResultCode.USER_NOT_LOGIN);
+            case TENANT_NOT_SET -> R.fail(ResultCode.TENANT_NOT_SET);
             default -> R.fail(ResultCode.UNAUTHORIZED.getCode(), "鉴权失败");
         };
     }

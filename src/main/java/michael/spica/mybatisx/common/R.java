@@ -2,6 +2,7 @@ package michael.spica.mybatisx.common;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import michael.spica.mybatisx.common.enums.ResultCode;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -52,6 +53,14 @@ public class R<T> implements Serializable {
 
     public static <T> R<T> fail(T data, String msg) {
         return restResult(data, 500, msg);
+    }
+
+    public static <T> R<T> fail(ResultCode resultCode) {
+        return restResult(null, resultCode.getCode(), resultCode.getMessage());
+    }
+
+    public static <T> R<T> fail(ResultCode resultCode, T data) {
+        return restResult(data, resultCode.getCode(), resultCode.getMessage());
     }
 
     private static <T> R<T> restResult(T data, int code, String msg) {

@@ -17,4 +17,8 @@ public class AuthException extends RuntimeException {
         super(message);
         this.type = type;
     }
+
+    public AuthException(AuthErrorType type) {
+        this.type = type;
+    }
 }

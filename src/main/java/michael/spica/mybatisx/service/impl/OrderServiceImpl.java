@@ -1,6 +1,5 @@
 package michael.spica.mybatisx.service.impl;
 
-import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -8,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import michael.spica.mybatisx.common.BasePageRequest;
 import michael.spica.mybatisx.common.R;
 import michael.spica.mybatisx.common.base.service.impl.BaseServiceImpl;
+import michael.spica.mybatisx.common.context.TenantContext;
+import michael.spica.mybatisx.common.util.RandomUtils;
 import michael.spica.mybatisx.controller.request.order.OrderCreateRequest;
 import michael.spica.mybatisx.controller.request.order.OrderPageRequest;
 import michael.spica.mybatisx.controller.request.order.OrderUpdareRequest;
@@ -29,10 +30,15 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order, Long> 
     @Override
     public R<Order> create(OrderCreateRequest request) {
         Order order = new Order();
-        BeanUtils.copyProperties(request, order);
-        order.setOrderNo("TB" + System.currentTimeMillis() + RandomUtil.randomNumbers(6));
+        order.setOrderNo(RandomUtils.generateOrderNo());
+        order.setTenantId(TenantContext.getCurrentTenantId());
+
+        RandomUtils.Product product = RandomUtils.randomProduct();
+        order.setProductName(product.getName());
+        order.setProductDesc(product.getDescription());
+
         order.setUserId(1L);
-        order.setTenantId(1L);
+
         int i = super.getBaseMapper().insert(order);
         if (i > 0) {
             log.info("创建订单成功，订单编号：{}", order.getOrderNo());

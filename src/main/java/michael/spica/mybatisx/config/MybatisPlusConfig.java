@@ -49,6 +49,7 @@ public class MybatisPlusConfig {
                 new TenantLineInnerInterceptor(new TenantLineHandler() {
                     @Override
                     public Expression getTenantId() {
+                        // 从上下文获取当前租户ID（例如: 从 ThreadLocal 或 SecurityContext）
                         Long tenantId = TenantContext.getCurrentTenantId();
                         if (null == tenantId) {
                             throw new AuthException(AuthErrorType.TENANT_NOT_SET, "未设置租户ID");
