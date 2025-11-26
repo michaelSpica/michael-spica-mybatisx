@@ -26,4 +26,6 @@ public interface OrderService extends BaseService<Order, Long> {
     R<List<Order>> all();
 
     R<Page<Order>> page(OrderPageRequest request);
+
+    R<Page<Order>> page();
 }

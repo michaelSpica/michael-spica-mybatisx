@@ -53,4 +53,9 @@ public class OrderController extends BaseController {
     public R<Page<Order>> page(@Valid @RequestBody OrderPageRequest request) {
         return orderService.page(request);
     }
+
+    @GetMapping("/page/v2")
+    public R<Page<Order>> pageV2() {
+        return orderService.page();
+    }
 }

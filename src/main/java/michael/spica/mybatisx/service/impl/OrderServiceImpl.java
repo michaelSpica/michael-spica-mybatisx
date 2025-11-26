@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
+import michael.spica.mybatisx.common.BasePageRequest;
 import michael.spica.mybatisx.common.R;
 import michael.spica.mybatisx.common.base.service.impl.BaseServiceImpl;
 import michael.spica.mybatisx.controller.request.order.OrderCreateRequest;
@@ -94,6 +95,11 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order, Long> 
     public R<Page<Order>> page(OrderPageRequest request) {
         LambdaQueryWrapper<Order> wrapper = new LambdaQueryWrapper<>();
         wrapper.like(StringUtils.isNotBlank(request.getOrderNo()), Order::getOrderNo, request.getOrderNo());
-        return R.ok(super.getBaseMapper().selectPage(Page.of(request.getCurrent(), request.getSize()), wrapper));
+        return R.ok(super.page(request, wrapper));
+    }
+
+    @Override
+    public R<Page<Order>> page() {
+        return R.ok(super.page(BasePageRequest.builder().build()));
     }
 }
