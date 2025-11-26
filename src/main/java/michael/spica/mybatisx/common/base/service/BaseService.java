@@ -14,5 +14,5 @@ public interface BaseService<T, ID extends Serializable> extends IService<T> {
 
     <R extends BasePageRequest> Page<T> page(R request, Wrapper<T> wrapper);
 
-    Page<T> page(BasePageRequest request);
+    Page<T> pageDefault(BasePageRequest request);
 }

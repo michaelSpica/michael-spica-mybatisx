@@ -95,11 +95,28 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order, Long> 
     public R<Page<Order>> page(OrderPageRequest request) {
         LambdaQueryWrapper<Order> wrapper = new LambdaQueryWrapper<>();
         wrapper.like(StringUtils.isNotBlank(request.getOrderNo()), Order::getOrderNo, request.getOrderNo());
-        return R.ok(super.page(request, wrapper));
+
+        // 方式一
+//        Page<Order> page = super.page(request, wrapper);
+
+        // 方式二: 取自定义排序参数
+//        Page<Order> page = super.page(request).with(wrapper).orderBy(request.getOrderBy(), request.isAsc()).exec();
+        // 方式二: 默认排序
+//        Page<Order> page = super.page(request).with(wrapper).exec();
+//        Page<Order> page = super.page().exec();
+        // 方式二: 默认排序 & 只带查询条件
+        Page<Order> page = super.page().with(wrapper).exec();
+
+        // 方式三: 降序（自定义排序属性）
+//        Page<Order> page = super.page(request).with(wrapper).orderByDesc("create_time").exec();
+        // 方式三: 升序（自定义排序属性）
+//        Page<Order> page = super.page(request).with(wrapper).orderByAsc("create_time").exec();
+
+        return R.ok(page);
     }
 
     @Override
-    public R<Page<Order>> page() {
-        return R.ok(super.page(BasePageRequest.builder().build()));
+    public R<Page<Order>> pageDefault() {
+        return R.ok(super.pageDefault(BasePageRequest.builder().build()));
     }
 }

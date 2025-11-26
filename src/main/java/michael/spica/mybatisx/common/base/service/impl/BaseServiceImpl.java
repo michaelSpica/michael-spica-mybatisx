@@ -36,8 +36,15 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T, ID extends Serializable
     }
 
     @Override
-    public Page<T> page(BasePageRequest request) {
+    public Page<T> pageDefault(BasePageRequest request) {
         return this.page(request, null);
     }
 
+    public <R extends BasePageRequest> PageBuilder page(R request) {
+        return new PageBuilder(request);
+    }
+
+    public PageBuilder page() {
+        return new PageBuilder(BasePageRequest.builder().build());
+    }
 }
